@@ -20,6 +20,7 @@
     <nav class="topbar__nav" aria-label="Seções do site">
       <a href="#video">Homenagem</a>
       <a href="#mural">Mural</a>
+      <a href="#galeria">Galeria</a>
       <a href="#final">Mensagem final</a>
     </nav>
   </header>
@@ -143,8 +144,21 @@
         <p class="eyebrow eyebrow--gold">O mural</p>
         <h2 id="mural-title" class="section__title section__title--light">Nossa pescaria de boas lembranças</h2>
         <p class="section__lead section__lead--light">“Cada pessoa tem uma história, uma lembrança e uma mensagem especial para compartilhar com você.”</p>
-        <p class="mural__hint">Escolha uma vara e pesque uma memória. São 20 lembranças esperando por você.</p>
+        <p class="mural__hint">Escolha uma vara e pesque uma memória. São 21 lembranças esperando por você.</p>
         <ul class="mural" id="muralGrid" aria-label="Cartões dos colaboradores"></ul>
+      </div>
+    </section>
+
+    <!-- 3B. GALERIA DE FOTOS -->
+    <section class="section section--galeria" id="galeria" aria-labelledby="galeria-title">
+      <svg class="gallery__waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 C240 0 480 120 720 60 C960 0 1200 120 1440 60 L1440 0 L0 0Z" fill="#061638"/></svg>
+      <div class="container">
+        <p class="eyebrow eyebrow--gold">Galeria de fotos</p>
+        <h2 id="galeria-title" class="section__title section__title--light">Momentos</h2>
+        <p class="section__lead section__lead--light">“Algumas lembranças a gente guarda numa fotografia. Aqui estão alguns dos momentos que vivemos juntos.”</p>
+        <p class="gallery__hint">Toque ou clique em uma foto para vê-la de perto.</p>
+        <ul class="gallery" id="galleryGrid" aria-label="Fotos da galeria"></ul>
+        <p class="gallery__empty" id="galleryEmpty" hidden>As fotos estão sendo reunidas. Em breve, este lago vai ficar cheio de lembranças.</p>
       </div>
     </section>
 
@@ -225,6 +239,32 @@
         <div class="video-box video-box--modal" id="modalVideo"></div>
         <button class="btn btn--secondary" type="button" id="modalBack">Voltar ao mural</button>
       </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX DA GALERIA -->
+  <div class="lightbox" id="lightbox" hidden>
+    <div class="lightbox__backdrop" data-close="true"></div>
+    <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+      <button class="lightbox__close" type="button" id="lightboxClose" aria-label="Fechar foto ampliada">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button" id="lightboxPrev" aria-label="Foto anterior">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <figure class="lightbox__figure" id="lightboxFigure">
+        <div class="lightbox__stage">
+          <img class="lightbox__img" id="lightboxImg" alt="">
+          <p class="lightbox__status" id="lightboxStatus" role="status"></p>
+        </div>
+        <figcaption class="lightbox__caption">
+          <span id="lightboxCaption"></span>
+          <span class="lightbox__count" id="lightboxCount"></span>
+        </figcaption>
+      </figure>
+      <button class="lightbox__nav lightbox__nav--next" type="button" id="lightboxNext" aria-label="Próxima foto">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 

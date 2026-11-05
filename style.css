@@ -45,7 +45,8 @@ body {
   overflow-x: hidden;
 }
 
-body.modal-open { overflow: hidden; }
+body.modal-open,
+body.lightbox-open { overflow: hidden; }
 
 img, svg { max-width: 100%; }
 
@@ -555,6 +556,213 @@ p { margin: 0 0 1rem; }
   .card__sign { margin-inline: 8px; padding: 8px 6px; }
 }
 
+/* ---------- 3B. Galeria de fotos (polaroids sobre o lago) ---------- */
+.section--galeria {
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  padding-top: clamp(110px, 12vw, 150px);
+  background:
+    radial-gradient(700px 360px at 85% 6%, rgba(255, 210, 31, 0.16), transparent 70%),
+    linear-gradient(to bottom, #1d4ca8 0%, #2352bd 24%, #1d4ca8 58%, var(--navy-800) 84%, var(--navy-900) 100%);
+}
+/* ondulações da água, movidas só com transform (leve para o navegador) */
+.section--galeria::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -240px;
+  right: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='140' viewBox='0 0 240 140'%3E%3Cpath d='M0 34q30-14 60 0t60 0t60 0t60 0' fill='none' stroke='%23bcd3ff' stroke-opacity='.22' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M-30 104q30-14 60 0t60 0t60 0t60 0t60 0' fill='none' stroke='%23ffe9a8' stroke-opacity='.16' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 240px 140px;
+  animation: tideDrift 26s linear infinite;
+}
+@keyframes tideDrift { from { translate: 0 0; } to { translate: 240px 0; } }
+
+.gallery__waves {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: block;
+}
+.gallery__hint {
+  margin: 14px auto 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+.gallery__empty {
+  margin: 36px auto 0;
+  max-width: 44ch;
+  color: #dbe6ff;
+  font-style: italic;
+}
+.gallery__empty[hidden] { display: none; }
+
+.gallery {
+  list-style: none;
+  margin: 44px 0 0;
+  padding: 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 34px 16px;
+}
+.gallery__item {
+  position: relative;
+  width: calc((100% - 16px) / 2);
+  min-width: 0;
+}
+.gallery__item:nth-child(3n + 2) { margin-top: 22px; }
+.gallery__item:nth-child(4n + 3) { margin-top: -6px; }
+@media (min-width: 600px) {
+  .gallery { gap: 44px 34px; }
+  .gallery__item { width: 210px; }
+}
+@media (min-width: 960px) {
+  .gallery { gap: 52px 46px; }
+  .gallery__item { width: 240px; }
+}
+/* sombra na água: fica parada enquanto a foto balança */
+.gallery__item::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -18px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(6, 22, 56, 0.5), transparent 70%);
+  pointer-events: none;
+}
+
+.polaroid {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 10px 0;
+  border: 0;
+  border-radius: 3px;
+  background: #fdfbf4;
+  color: var(--navy-900);
+  font: inherit;
+  text-align: center;
+  appearance: none;
+  -webkit-appearance: none;
+  transform: rotate(var(--rot, 0deg));
+  box-shadow: 0 8px 18px rgba(6, 22, 56, 0.4), 0 2px 4px rgba(6, 22, 56, 0.25);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: floatOnWater var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  -webkit-tap-highlight-color: transparent;
+}
+button.polaroid { cursor: pointer; }
+button.polaroid:disabled { cursor: default; }
+@keyframes floatOnWater {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+/* fita adesiva */
+.polaroid::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 68px;
+  height: 22px;
+  margin-left: -34px;
+  background: rgba(255, 210, 31, 0.62);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+.gallery__item:nth-child(even) .polaroid::before {
+  background: rgba(143, 178, 242, 0.7);
+  transform: rotate(4deg);
+}
+
+.polaroid__photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, #cfe0ff, #8fb2f2);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.polaroid__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.polaroid__photo img[data-state="loaded"] { opacity: 1; }
+.polaroid__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 6px 4px 8px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: var(--navy-800);
+}
+/* retrato vazio ("Foto em breve") */
+.polaroid__photo--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--navy-700);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(to bottom, #dfe9ff 0%, #bcd3ff 55%, #8fb2f2 100%);
+}
+.polaroid__photo--empty svg { opacity: 0.8; }
+/* foto que não carregou */
+.polaroid__fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--navy-700);
+  background: linear-gradient(160deg, #dfe9ff, #bcd3ff);
+}
+.polaroid.is-broken .polaroid__fallback { display: grid; }
+
+/* destaque: desentorta, dá zoom e aumenta a sombra */
+.polaroid:focus-visible {
+  z-index: 3;
+  transform: rotate(0deg) scale(1.06);
+  box-shadow: 0 26px 46px rgba(0, 0, 0, 0.55), 0 6px 12px rgba(0, 0, 0, 0.3);
+  outline: 3px solid var(--yellow);
+  outline-offset: 5px;
+  animation-play-state: paused;
+}
+@media (hover: hover) {
+  .polaroid:hover {
+    z-index: 3;
+    transform: rotate(0deg) scale(1.08);
+    box-shadow: 0 26px 46px rgba(0, 0, 0, 0.55), 0 6px 12px rgba(0, 0, 0, 0.3);
+    animation-play-state: paused;
+  }
+}
+button.polaroid:active { transform: rotate(0deg) scale(1.02); }
+
 /* ---------- 4. Modal ---------- */
 .modal {
   position: fixed;
@@ -670,6 +878,138 @@ p { margin: 0 0 1rem; }
   90% { translate: 0 0; opacity: 0.9; }
 }
 
+/* ---------- 4B. Lightbox da galeria ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 10, 28, 0.92);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: fadeIn 0.25s ease;
+}
+/* o contêiner deixa o clique passar para o fundo; só os controles e a foto recebem clique */
+.lightbox__dialog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.lightbox__close,
+.lightbox__nav,
+.lightbox__figure { pointer-events: auto; }
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--navy-900);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.lightbox__close { top: 0; right: 0; }
+.lightbox__close:hover { transform: rotate(90deg) scale(1.05); }
+.lightbox__nav { top: 50%; margin-top: -23px; }
+.lightbox__nav--prev { left: 0; }
+.lightbox__nav--next { right: 0; }
+.lightbox__nav:hover { background: #ffe35f; transform: scale(1.08); }
+.lightbox__nav[hidden] { display: none; }
+.lightbox__close:focus-visible,
+.lightbox__nav:focus-visible { outline-color: #fff; }
+
+.lightbox__figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: min(100%, 1100px);
+  padding: 12px 12px 10px;
+  background: #fdfbf4;
+  border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: popIn 0.3s ease;
+}
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: min(78vw, 360px);
+  min-height: 200px;
+  background: #e8eefb;
+}
+.lightbox__img {
+  grid-area: 1 / 1;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  max-height: calc(100dvh - 150px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lightbox__img[data-state="loaded"] { opacity: 1; }
+.lightbox__status {
+  grid-area: 1 / 1;
+  display: none;
+  margin: 0;
+  padding: 16px;
+  max-width: 34ch;
+  text-align: center;
+  font-weight: 700;
+  color: var(--navy-800);
+}
+.lightbox__figure.is-loading .lightbox__status,
+.lightbox__figure.is-error .lightbox__status { display: block; }
+.lightbox__figure.is-error .lightbox__img { display: none; }
+
+.lightbox__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 4px 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--navy-800);
+}
+.lightbox__count {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 460px) {
+  .lightbox { padding: 8px; }
+  .lightbox__close,
+  .lightbox__nav { width: 42px; height: 42px; }
+  .lightbox__nav { margin-top: -21px; }
+  .lightbox__figure { padding: 8px 8px 8px; }
+}
+
 /* ---------- 5. Mensagem final ---------- */
 .final {
   position: relative;
@@ -736,6 +1076,9 @@ p { margin: 0 0 1rem; }
   .final .boat { transform: translate(790px, 395px) scale(0.8); }
   .topbar__nav a:nth-child(1) { display: none; }
   .final__scene { height: 260px; }
+}
+@media (max-width: 520px) {
+  .topbar__nav a:nth-child(2) { display: none; } /* esconde "Mural" para caber no celular */
 }
 @media (max-width: 460px) {
   .topbar__brand { font-size: 1rem; }

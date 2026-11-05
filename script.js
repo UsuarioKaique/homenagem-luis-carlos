@@ -23,7 +23,7 @@
    ---------------------------------------------------------- */
 
 // Vídeo principal da homenagem coletiva (link do Google Drive):
-const mainVideoUrl = "https://drive.google.com/file/d/1sqv_Q213_6cQkcgEZ6FILQmRAL-noUgZ/view?usp=sharing"; // <- COLE_AQUI_O_LINK_DO_VIDEO_PRINCIPAL
+const mainVideoUrl = "https://drive.google.com/file/d/1wkMKP4W1xZe5GPuSV6BmDM54QolSH-x_/view?usp=drive_link"; // <- COLE_AQUI_O_LINK_DO_VIDEO_PRINCIPAL
 
 // Nome do homenageado (usado nos títulos e nas cenas):
 const HONOREE = "Luis Carlos";
@@ -37,27 +37,79 @@ const HONOREE = "Luis Carlos";
 //             a foto simplesmente não aparece (não quebra a janela).
 //   message : (opcional) frase curta mostrada na janela do depoimento
 const collaborators = [
-  { name: "ELIANE FERNANDES",  gender: "female", videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "JULIO CESAR",       gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "EUGENIO MARQUES",   gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "FRANCISCO PEIXOTO", gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "CELSO RICARDO",     gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "HELENICE JULIANA",  gender: "female", videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "ANTONIO RIBEIRO",   gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "SILVIO CESAR",      gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "ALEXANDER DE ASSIS",gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "JOSÉ ROBERTO",      gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "DAVI RICARDO",      gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "THIAGO MIGLIORINI", gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "EDUARDO EURIPEDES", gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "MANUEL",            gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "FABIANO OBINI",     gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "GERSON MARCONDES",  gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "GILBERTO DOS SANTOS", gender: "male", videoUrl: "", message: "Uma lembrança especial para guardar." },
-  { name: "CRISTIAN FIUMARI",  gender: "male",   videoUrl: "https://drive.google.com/file/d/1FYepLcZE8aQFqOd8lA8MdRbR4Xn1jNEo/view?usp=sharing", message: "Uma lembrança especial para guardar." },
-  { name: "RENAN OLIVEIRA",    gender: "male",   videoUrl: "https://drive.google.com/file/d/1ZilkODbOBwDaTHRfTzGC7Zs2JsFD0Qum/view?usp=sharing", message: "Uma lembrança especial para guardar." },
-  { name: "KAIQUE MELO",       gender: "male",   videoUrl: "", message: "Uma lembrança especial para guardar." }
+  { name: "ELIANE FERNANDES",  gender: "female", videoUrl: "https://drive.google.com/file/d/1mr8s5JuMkox2sSR0H-KYff9dbuHuWd7L/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "JULIO CESAR",       gender: "male",   videoUrl: "https://drive.google.com/file/d/1fhHSdw3Ce3LLrC-MPtQ0KH2Ww7QCbAne/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "EUGENIO MARQUES",   gender: "male",   videoUrl: "https://drive.google.com/file/d/1bAGsGRA6SML6KwVR6wvjmgRMndnPaLwb/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "FRANCISCO PEIXOTO", gender: "male",   videoUrl: "https://drive.google.com/file/d/1HUN91pWD7SpCkWzvxL3E-fOynk9cIOvr/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "RICARDO PRADO",     gender: "male",   videoUrl: "https://drive.google.com/file/d/1rV4AJ6PbNjwYZ0Al2tH281Q8NF0x7WEx/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "CELSO RICARDO",     gender: "male",   videoUrl: "https://drive.google.com/file/d/1wcPDZ5UZrCjczRI01e8opT03mc7euH24/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "JORGE GALLO",       gender: "female", videoUrl: "https://drive.google.com/file/d/16TX3aTeS4WgUxd4VykgKw8epJ6sDj06o/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "ANTONIO RIBEIRO",   gender: "male",   videoUrl: "https://drive.google.com/file/d/1MfxrJ5lIqUF3Ya9zkYDHdVlMXU9CZ4iO/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "SILVIO CESAR",      gender: "male",   videoUrl: "https://drive.google.com/file/d/1uD1LSxhhxjf1Ekb5UK2kQP4vrueT0jQf/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "ALEXANDER DE ASSIS",gender: "male",   videoUrl: "https://drive.google.com/file/d/1jcNIEC6KryLWyR-AZIhXsHBhIUvsmE18/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "JOSÉ ROBERTO",      gender: "male",   videoUrl: "https://drive.google.com/file/d/1G9Il0ejaMg-vMNQlqPqYX8zXKX-MzB0h/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "DAVI RICARDO",      gender: "male",   videoUrl: "https://drive.google.com/file/d/1QOzOfFZU0jfTxVd4PVwB11Y8RfVEznLt/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "THIAGO MIGLIORINI", gender: "male",   videoUrl: "https://drive.google.com/file/d/1lBnBz7P1JrTFkm1ngdJwE73ry46b6zg1/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "EDUARDO EURIPEDES", gender: "male",   videoUrl: "https://drive.google.com/file/d/17dpcZUYMxpiy2TiW61aTp9qh-gciVP5s/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "MANUEL JOAQUIM",    gender: "male",   videoUrl: "https://drive.google.com/file/d/1S0gYCNAHw-fP0KIYp1whxUyrg26g5ABx/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "FABIANO OBINA",     gender: "male",   videoUrl: "https://drive.google.com/file/d/1TWaBI6CMNENYuy-I_bGlH0gIWSPK5waV/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "GERSON MARCONDES",  gender: "male",   videoUrl: "https://drive.google.com/file/d/1AFdY_eXwwShtb0PfUPnTTFujI9VobrN_/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "GILBERTO DOS SANTOS", gender: "male", videoUrl: "https://drive.google.com/file/d/197djzHcRd2Gh-QPZHVThE-nt1CvIrCzd/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "CRISTIAN FIUMARI",  gender: "male",   videoUrl: "https://drive.google.com/file/d/1zGWulA4LHIb1xXevUPTCdFhVMutlHrFh/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "RENAN OLIVEIRA",    gender: "male",   videoUrl: "https://drive.google.com/file/d/1OKtZDKVqnE5cooAEq_2GwAcjB-pejJ91/view?usp=drive_link", message: "Uma lembrança especial para guardar." },
+  { name: "KAIQUE MELO",       gender: "male",   videoUrl: "https://drive.google.com/file/d/1wmNtHpH5r3pXs09zc0Btl_DBVw-gfELl/view?usp=drive_link", message: "Uma lembrança especial para guardar." }
 ];
+
+// ----------------------------------------------------------
+// GALERIA DE FOTOS ("Momentos da nossa pescaria")
+// ----------------------------------------------------------
+// Cada item da lista pode ser:
+//   - só o ID da foto no Google Drive:  "1AbCdEfGhIjKlMnOpQrStUvWxYz012345"
+//   - o link de compartilhamento:       "https://drive.google.com/file/d/ID/view?usp=sharing"
+//   - um caminho de foto dentro do projeto: "assets/galeria/pesca-01.jpg"
+//   - ou um objeto com legenda:         { photo: "ID_OU_LINK", caption: "Pescaria de 2019" }
+// "" (vazio) mostra um retrato "Foto em breve". Apague as linhas que sobrarem
+// quando terminar de preencher, ou use SHOW_GALLERY_PLACEHOLDERS = false.
+// No Drive, a foto precisa estar compartilhada como "Qualquer pessoa com o link"
+// para aparecer dentro do site.
+const galleryPhotos = [
+  "https://drive.google.com/file/d/1xomiEMmSlLwy_gwzYIt89_kXpqYY2FUE/view?usp=drive_link", // foto 1
+  "https://drive.google.com/file/d/1e4sMsV27kYGjCDcrIvDF4BBJZR6v25Lv/view?usp=drive_link", // foto 2
+  "https://drive.google.com/file/d/1QLC_CvdEjcx99foiW0oJj-JCL4t1XCDk/view?usp=drive_link", // foto 3
+  "https://drive.google.com/file/d/1Hq2V36f-fx1s_ImQ3OaFPUv2rV03eiNx/view?usp=drive_link", // foto 4
+  "https://drive.google.com/file/d/1mGBYHc4WW9YAPYt_iqQwykAN__3SgjZR/view?usp=drive_link", // foto 5
+  "https://drive.google.com/file/d/1JwdOhRBtAI6hrKKHmT8tHbp96ozM8Y59/view?usp=drive_link", // foto 6
+  "https://drive.google.com/file/d/13647BmXgB3Qt_FXrHyPDvV2Igt_58Rsm/view?usp=drive_link", // foto 7
+  "https://drive.google.com/file/d/1N-ZHR0PRymVxmVM3MCwT0ieP22XVMwQx/view?usp=drive_link", // foto 8
+  "https://drive.google.com/file/d/1_gTY9aIDNbrsVqgsTHXASuqSfqUWB6_A/view?usp=drive_link", // foto 9
+  "https://drive.google.com/file/d/1JE6_LdE8MXhJM0eey2RdJKGaC7mGJ9Ci/view?usp=drive_link", // foto 10
+  "https://drive.google.com/file/d/1lSt4PYL__hZm7I8QwwpWDNpZZT8UH8vc/view?usp=drive_link", // foto 11
+  "https://drive.google.com/file/d/1P-XiUjga4LV2M0x1wuRCqA3fT4KfhFbN/view?usp=drive_link", // foto 12
+  "https://drive.google.com/file/d/1xomiEMmSlLwy_gwzYIt89_kXpqYY2FUE/view?usp=drive_link", // foto 13
+  "https://drive.google.com/file/d/1nja9ecXfOuryKdlwrWA9biiRbKMjf-JN/view?usp=drive_link", // foto 14
+  "https://drive.google.com/file/d/1Yqewc_6ubVx4EkTZw5L196ULAzpk-o4Z/view?usp=drive_link", // foto 15
+  "https://drive.google.com/file/d/1fyhkclVC9rmjU2HAVXVXYztryLDnSxDq/view?usp=drive_link", // foto 16
+  "https://drive.google.com/file/d/1GwU7wGq-5ATHgrw2071CJfDL_onO4BX6/view?usp=drive_link", // foto 17
+  "https://drive.google.com/file/d/1AsTVmcltNgxiNxPPBVgS3YjOY6jVUPBK/view?usp=drive_link", // foto 18
+  "https://drive.google.com/file/d/1MfCoM-elD9hL1xA-aDfTco8l7rlXBq5U/view?usp=drive_link", // foto 19
+  "https://drive.google.com/file/d/10l61GTVLSTavhOB98V-X7k6P9GP6QxDl/view?usp=drive_link", // foto 20
+  "https://drive.google.com/file/d/1yPoPM1PAWAlkKBkF5jxikn4A_rr4KwGE/view?usp=drive_link", // foto 21
+  "https://drive.google.com/file/d/1G3MD6IqBhZ288VIYCOPvYi7HWXFG-KvW/view?usp=drive_link", // foto 22
+  "https://drive.google.com/file/d/1gg5Nh-Q4Jhqym3IHtmuDHVVYlpzgoIot/view?usp=drive_link", // foto 23
+  "https://drive.google.com/file/d/1wRvc-fS3L_uHYviqRKjm4Jg3xmMleF_Z/view?usp=drive_link", // foto 24
+  "https://drive.google.com/file/d/13YXltTKjoaEz1jlxmvUyWxyHrw7kKaRY/view?usp=drive_link", // foto 25 
+  "https://drive.google.com/file/d/1uJXIPUMjKfStHAsygiDP6B1G_rCXujGB/view?usp=drive_link", // foto 26
+  "https://drive.google.com/file/d/1VeiAxfHlMRK2QXcC_nnJz0iKoPl6OmOv/view?usp=drive_link", // foto 27
+  "https://drive.google.com/file/d/16aAFjB_rjanuXNbIu7aa2qLYrObciY7Q/view?usp=drive_link", // foto 28
+  "https://drive.google.com/file/d/1JhvNGkn0NIRJ3DJB7eJb-1ZA27lbWzzm/view?usp=drive_link", // foto 29
+  "https://drive.google.com/file/d/1l-FpFtROV7WVarNxn2-XZfLGdokpPwgD/view?usp=drive_link", // foto 30
+  "https://drive.google.com/file/d/14V0tIWIMt5tz412j13sZ72T4JyTHvith/view?usp=drive_link", // foto 31
+  
+];
+
+// true  = itens vazios aparecem como "Foto em breve"
+// false = itens vazios ficam escondidos
+const SHOW_GALLERY_PLACEHOLDERS = true;
 
 const MSG_PENDING_MAIN = "A homenagem principal está sendo finalizada. Em breve, você poderá assistir a ela aqui.";
 const MSG_PENDING_ITEM = "Esta lembrança está sendo preparada. Em breve, você poderá assistir a este depoimento.";
@@ -121,7 +173,7 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
     const m = url.pathname.match(/^\/file\/(?:u\/\d+\/)?d\/([^/]+)/);
     if (m) {
       id = m[1];
-    } else if (url.pathname === "/open" || url.pathname === "/uc") {
+    } else if (url.pathname === "/open" || url.pathname === "/uc" || url.pathname === "/thumbnail") {
       id = url.searchParams.get("id") || "";
     }
     if (!DRIVE_ID_RE.test(id)) return { status: "invalid" };
@@ -157,7 +209,7 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
     p.className = "vb-help" + (variant ? " vb-help--" + variant : "");
     
     const span = document.createElement("span");
-    span.textContent = "Se aparecer uma tela de acesso negado ou de login, entre com a conta Google autorizada a assistir e tente novamente. ";
+    span.textContent = "";
     
     const a = document.createElement("a");
     a.href = info.viewUrl;
@@ -566,6 +618,291 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
     });
   }
 
+  /* ---------- Galeria de fotos (polaroids) e lightbox ---------- */
+
+  const GALLERY_TILTS = [-4, 3, -2, 5, -5, 2, -3, 4]; // graus: alterna esquerda e direita
+  // Caminho local de imagem (ex.: assets/galeria/pesca-01.jpg). URLs externas e "/" no início não passam.
+  const LOCAL_IMG_RE = /^(?!\/|\.\.|[a-z][a-z0-9+.-]*:)[\w\-. /%À-ſ]+\.(?:jpe?g|png|webp|gif|avif)$/i;
+  const FISH_SVG =
+    '<svg viewBox="0 0 64 40" width="56" height="35" aria-hidden="true" focusable="false">' +
+    '<path d="M6 20c8-12 22-14 34-4l12-8v24l-12-8C28 34 14 32 6 20z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>' +
+    '<circle cx="16" cy="19" r="1.8" fill="currentColor"/></svg>';
+  const MSG_PHOTO_LOADING = "Carregando foto…";
+  const MSG_PHOTO_ERROR = "Não foi possível carregar esta foto agora. Confira se ela está compartilhada como “Qualquer pessoa com o link” no Google Drive.";
+
+  // Aceita o ID puro de um arquivo do Drive ou um link de compartilhamento reconhecido.
+  function parseDriveImageId(input) {
+    if (typeof input !== "string") return "";
+    const raw = input.trim();
+    if (DRIVE_ID_RE.test(raw)) return raw;
+    const info = parseDriveLink(raw);
+    return info.status === "ok" ? info.id : "";
+  }
+
+  // Converte um ID ou link do Drive no endereço direto de imagem para a tag <img>.
+  // Exemplo: "https://drive.google.com/uc?export=view&id=ID_DA_FOTO". Devolve "" se não for válido.
+  function driveImageUrl(input) {
+    const id = parseDriveImageId(input);
+    return id ? "https://drive.google.com/uc?export=view&id=" + id : "";
+  }
+
+  // Lista de endereços a tentar, em ordem. Se o primeiro falhar, o próximo é usado.
+  // "thumb" = miniatura leve para a galeria; "full" = foto grande para o lightbox.
+  function drivePhotoSources(id, kind) {
+    const direct = driveImageUrl(id);
+    const thumb = function (w) { return "https://drive.google.com/thumbnail?id=" + id + "&sz=w" + w; };
+    return kind === "full" ? [direct, thumb(2000)] : [thumb(800), direct];
+  }
+
+  function normalizePhoto(entry, index) {
+    const obj = typeof entry === "string" ? { photo: entry } : (entry && typeof entry === "object" ? entry : {});
+    const raw = String(obj.photo || obj.src || obj.url || "").trim();
+    const caption = String(obj.caption || "").trim();
+    if (!raw) return { status: "empty", caption: caption };
+
+    if (LOCAL_IMG_RE.test(raw)) {
+      return { status: "ok", caption: caption, thumbSources: [raw], fullSources: [raw] };
+    }
+    const id = parseDriveImageId(raw);
+    if (!id) {
+      console.warn("[Mural] Foto inválida na galeria (item " + (index + 1) + " de galleryPhotos):", raw);
+      return { status: "invalid", caption: caption };
+    }
+    return { status: "ok", caption: caption, thumbSources: drivePhotoSources(id, "thumb"), fullSources: drivePhotoSources(id, "full") };
+  }
+
+  // Carrega uma imagem tentando cada endereço da lista até um funcionar.
+  function loadImage(img, sources, onFail, onLoad) {
+    let i = 0;
+    const seq = (img._seq = (img._seq || 0) + 1); // ignora respostas de cargas antigas
+    img.dataset.state = "loading";
+    img.onload = function () {
+      if (img._seq !== seq) return;
+      img.dataset.state = "loaded";
+      if (onLoad) onLoad();
+    };
+    img.onerror = function () {
+      if (img._seq !== seq) return;
+      if (i < sources.length) {
+        img.src = sources[i++];
+      } else {
+        img.onerror = null;
+        img.dataset.state = "error";
+        if (onFail) onFail();
+      }
+    };
+    img.src = sources[i++];
+  }
+
+  const gallery = { items: [], current: -1, open: false, lastFocus: null };
+
+  function renderGallery() {
+    const grid = $("#galleryGrid");
+    if (!grid) return;
+
+    let items = (Array.isArray(galleryPhotos) ? galleryPhotos : []).map(normalizePhoto);
+    if (!SHOW_GALLERY_PLACEHOLDERS) {
+      items = items.filter(function (it) { return it.status === "ok"; });
+    }
+    gallery.items = items;
+
+    const emptyMsg = $("#galleryEmpty");
+    if (emptyMsg) emptyMsg.hidden = items.length > 0;
+
+    const frag = document.createDocumentFragment();
+    items.forEach(function (it, i) {
+      const li = document.createElement("li");
+      li.className = "gallery__item";
+      li.style.setProperty("--rot", GALLERY_TILTS[i % GALLERY_TILTS.length] + "deg");
+      li.style.setProperty("--dur", (6.5 + (i % 4) * 0.9).toFixed(1) + "s");
+      li.style.setProperty("--delay", (-i * 0.8).toFixed(1) + "s");
+
+      if (it.status === "ok") {
+        const label = it.caption || "Foto " + (i + 1) + " da galeria";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "polaroid";
+        btn.dataset.index = String(i);
+        btn.setAttribute("aria-haspopup", "dialog");
+        btn.setAttribute("aria-label", "Ampliar foto: " + label);
+
+        const photo = document.createElement("span");
+        photo.className = "polaroid__photo";
+        const img = document.createElement("img");
+        img.alt = label;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.draggable = false;
+        img.referrerPolicy = "no-referrer";
+        const fallback = document.createElement("span");
+        fallback.className = "polaroid__fallback";
+        fallback.textContent = "Foto indisponível";
+        photo.append(img, fallback);
+
+        const cap = document.createElement("span");
+        cap.className = "polaroid__caption";
+        cap.textContent = it.caption;
+
+        btn.append(photo, cap);
+        li.appendChild(btn);
+
+        loadImage(img, it.thumbSources, function () {
+          it.broken = true;
+          btn.classList.add("is-broken");
+          btn.disabled = true;
+        });
+      } else {
+        const box = document.createElement("div");
+        box.className = "polaroid polaroid--empty";
+        box.innerHTML = '<span class="polaroid__photo polaroid__photo--empty">' + FISH_SVG + '<span class="polaroid__soon"></span></span><span class="polaroid__caption"></span>';
+        $(".polaroid__soon", box).textContent = it.status === "invalid" ? "Foto indisponível" : "Foto em breve";
+        li.appendChild(box);
+      }
+      frag.appendChild(li);
+    });
+
+    grid.replaceChildren(frag);
+    grid.addEventListener("click", function (ev) {
+      const btn = ev.target.closest(".polaroid[data-index]");
+      if (btn && grid.contains(btn) && !btn.disabled) openLightbox(Number(btn.dataset.index), btn);
+    });
+  }
+
+  // Índices das fotos que podem ser ampliadas (ignora vazias e as que falharam).
+  function galleryNav() {
+    const out = [];
+    gallery.items.forEach(function (it, i) {
+      if (it.status === "ok" && !it.broken) out.push(i);
+    });
+    return out;
+  }
+
+  function showGalleryPhoto(index) {
+    const it = gallery.items[index];
+    const fig = $("#lightboxFigure");
+    const img = $("#lightboxImg");
+    if (!it || it.status !== "ok" || !fig || !img) return;
+
+    gallery.current = index;
+    fig.classList.remove("is-error");
+    fig.classList.add("is-loading");
+    $("#lightboxStatus").textContent = MSG_PHOTO_LOADING;
+
+    img.alt = it.caption || "Foto " + (index + 1) + " da galeria, ampliada";
+    img.referrerPolicy = "no-referrer";
+    $("#lightboxCaption").textContent = it.caption;
+
+    const nav = galleryNav();
+    const pos = nav.indexOf(index);
+    $("#lightboxCount").textContent = nav.length > 1 && pos >= 0 ? (pos + 1) + " / " + nav.length : "";
+    $("#lightboxPrev").hidden = nav.length < 2;
+    $("#lightboxNext").hidden = nav.length < 2;
+
+    loadImage(
+      img,
+      it.fullSources,
+      function () {
+        fig.classList.remove("is-loading");
+        fig.classList.add("is-error");
+        $("#lightboxStatus").textContent = MSG_PHOTO_ERROR;
+      },
+      function () { fig.classList.remove("is-loading"); }
+    );
+  }
+
+  function openLightbox(index, trigger) {
+    const root = $("#lightbox");
+    if (!root) return;
+    gallery.lastFocus = trigger || document.activeElement;
+    gallery.open = true;
+    root.hidden = false;
+    document.body.classList.add("lightbox-open");
+    showGalleryPhoto(index);
+    const closeBtn = $("#lightboxClose");
+    if (closeBtn) closeBtn.focus({ preventScroll: true });
+  }
+
+  function closeLightbox() {
+    if (!gallery.open) return;
+    gallery.open = false;
+
+    const img = $("#lightboxImg");
+    if (img) {
+      img._seq = (img._seq || 0) + 1; // cancela qualquer carga em andamento
+      img.onload = null;
+      img.onerror = null;
+      img.removeAttribute("src");
+      img.dataset.state = "";
+    }
+    const root = $("#lightbox");
+    if (root) root.hidden = true;
+    document.body.classList.remove("lightbox-open");
+
+    const back = gallery.lastFocus;
+    gallery.lastFocus = null;
+    if (back && typeof back.focus === "function" && document.contains(back)) {
+      back.focus({ preventScroll: true });
+    }
+  }
+
+  function stepLightbox(delta) {
+    const nav = galleryNav();
+    if (nav.length < 2) return;
+    const pos = nav.indexOf(gallery.current);
+    const next = pos < 0 ? nav[0] : nav[(pos + delta + nav.length) % nav.length];
+    showGalleryPhoto(next);
+  }
+
+  function trapLightboxTab(ev) {
+    const root = $("#lightbox");
+    const items = Array.from(root.querySelectorAll("button")).filter(function (el) { return !el.hidden; });
+    if (!items.length) { ev.preventDefault(); return; }
+    const first = items[0];
+    const last = items[items.length - 1];
+    const active = document.activeElement;
+    if (ev.shiftKey && (active === first || !root.contains(active))) {
+      ev.preventDefault();
+      last.focus();
+    } else if (!ev.shiftKey && (active === last || !root.contains(active))) {
+      ev.preventDefault();
+      first.focus();
+    }
+  }
+
+  function bindLightbox() {
+    const root = $("#lightbox");
+    if (!root) return;
+
+    $("#lightboxClose").addEventListener("click", closeLightbox);
+    $("#lightboxPrev").addEventListener("click", function () { stepLightbox(-1); });
+    $("#lightboxNext").addEventListener("click", function () { stepLightbox(1); });
+
+    // Clique fora da foto (no fundo escuro) fecha; clique na foto ou nos botões não fecha.
+    root.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.dataset && ev.target.dataset.close === "true") closeLightbox();
+    });
+
+    document.addEventListener("keydown", function (ev) {
+      if (!gallery.open) return;
+      if (ev.key === "Escape") { ev.preventDefault(); closeLightbox(); }
+      else if (ev.key === "ArrowLeft") { ev.preventDefault(); stepLightbox(-1); }
+      else if (ev.key === "ArrowRight") { ev.preventDefault(); stepLightbox(1); }
+      else if (ev.key === "Tab") trapLightboxTab(ev);
+    });
+
+    // Deslizar o dedo para os lados troca de foto no celular.
+    let tx = 0, ty = 0;
+    root.addEventListener("touchstart", function (ev) {
+      const t = ev.changedTouches[0];
+      tx = t.clientX; ty = t.clientY;
+    }, { passive: true });
+    root.addEventListener("touchend", function (ev) {
+      const t = ev.changedTouches[0];
+      const dx = t.clientX - tx, dy = t.clientY - ty;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) stepLightbox(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  }
+
   /* ---------- Navegação ---------- */
 
   function bindHero() {
@@ -582,7 +919,9 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
   function init() {
     renderMainVideo();
     renderMural();
+    renderGallery();
     bindModal();
+    bindLightbox();
     bindHero();
   }
 
