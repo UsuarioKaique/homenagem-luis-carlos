@@ -223,9 +223,50 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
     box.insertAdjacentElement("afterend", p);
 }
 
+  // Formato do vídeo (horizontal/vertical). Só ajusta a PROPORÇÃO da caixa: vídeo gravado em pé
+  // no celular aparece inteiro em vez de ficar com tarjas laterais. Se não der para descobrir,
+  // a caixa continua 16:9 como sempre. Também dá para forçar com videoFormat: "vertical"/"horizontal".
+  const formatCache = {};
+  function normalizeFormat(v) {
+    const t = String(v || "").trim().toLowerCase();
+    return t === "vertical" || t === "horizontal" ? t : "";
+  }
+  function setBoxFormat(box, fmt) {
+    box.classList.toggle("video-box--vertical", fmt === "vertical");
+  }
+  function detectVideoFormat(id) {
+    if (formatCache[id]) return Promise.resolve(formatCache[id]);
+    return new Promise(function (resolve) {
+      const img = new Image();
+      let done = false;
+      function end(f) {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        img.onload = img.onerror = null;
+        if (f) formatCache[id] = f;
+        resolve(f || "");
+      }
+      const timer = setTimeout(function () { end(""); }, 4000);
+      img.onload = function () {
+        end(img.naturalHeight > img.naturalWidth * 1.15 ? "vertical" : "horizontal");
+      };
+      img.onerror = function () { end(""); };
+      img.src = "https://drive.google.com/thumbnail?id=" + encodeURIComponent(id) + "&sz=w400";
+    });
+  }
+  function applyVideoFormat(box, info, forced, isStale) {
+    const f = normalizeFormat(forced);
+    if (f) { setBoxFormat(box, f); return; }
+    detectVideoFormat(info.id).then(function (fmt) {
+      if (fmt && !(isStale && isStale())) setBoxFormat(box, fmt);
+    });
+  }
+
   // Remove o iframe de um contêiner e interrompe o áudio.
   function unloadVideo(box) {
     if (!box) return;
+    box.classList.remove("video-box--vertical");
     box.querySelectorAll("iframe").forEach((f) => {
       try { f.src = "about:blank"; } catch (e) { /* ignora */ }
     });
@@ -280,6 +321,9 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
       buildCover("Assistir à homenagem", "40 anos de história em um só vídeo", function () {
         box.replaceChildren(createIframe(info.embedUrl, "Vídeo da homenagem a " + HONOREE));
         setAccessHelp(box, info, "plaque");
+        applyVideoFormat(box, info, typeof mainVideoFormat === "undefined" ? "" : mainVideoFormat, function () {
+          return !box.querySelector("iframe");
+        });
       })
     );
   }
@@ -495,7 +539,7 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
 
   const modal = $("#modal");
   const panel = modal ? $(".modal__panel", modal) : null;
-  const state = { open: false, lastFocus: null };
+  const state = { open: false, lastFocus: null, videoToken: 0 };
 
   function ensureExtraModalNodes() {
     // Linha com os dois nomes e foto opcional (criadas por script para manter o HTML simples).
@@ -534,6 +578,10 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
     }
     box.appendChild(createIframe(info.embedUrl, "Depoimento de " + display));
     setAccessHelp(box, info);
+    const token = state.videoToken;
+    applyVideoFormat(box, info, c.videoFormat, function () {
+      return !state.open || token !== state.videoToken;
+    });
   }
 
   function openModal(index) {
@@ -545,6 +593,7 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
 
     state.lastFocus = document.activeElement;
     state.open = true;
+    state.videoToken++;
 
     $("#modalScene").innerHTML = buildScene(c, index);
     $("#modalTitle").textContent = "Uma pescaria de boas lembranças com " + display;
@@ -573,6 +622,7 @@ const DEFAULT_MESSAGE = "Uma lembrança especial para guardar.";
   function closeModal() {
     if (!state.open) return;
     state.open = false;
+    state.videoToken++;
 
     unloadVideo($("#modalVideo"));        // para o áudio e remove o iframe
     $("#modalScene").replaceChildren();   // libera a cena

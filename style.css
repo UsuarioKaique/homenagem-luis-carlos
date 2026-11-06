@@ -384,6 +384,32 @@ p { margin: 0 0 1rem; }
 .vb-help--plaque { margin: 12px 6px 4px; max-width: none; color: #dbe6ff; }
 .vb-help--plaque a { color: var(--yellow); }
 .vb-help--plaque a:focus-visible { outline-color: var(--yellow); }
+.vb-help a { display: inline-block; padding: 10px 6px; } /* área de toque confortável */
+
+/* Responsividade técnica dos vídeos: a caixa nunca passa da altura da tela
+   (celular deitado, janelas baixas), mantendo a proporção 16:9 original. */
+.plaque .video-box,
+.video-box--modal {
+  width: min(100%, max(220px, calc((100vh - 170px) * 16 / 9)));
+  width: min(100%, max(220px, calc((100dvh - 170px) * 16 / 9)));
+  margin-inline: auto;
+}
+/* Vídeo gravado em pé (celular): mesma caixa, só com a proporção do próprio vídeo */
+.plaque .video-box.video-box--vertical,
+.video-box--modal.video-box--vertical {
+  aspect-ratio: 9 / 16;
+  width: min(100%, max(160px, calc((100vh - 170px) * 9 / 16)));
+  width: min(100%, max(160px, calc((100dvh - 170px) * 9 / 16)));
+}
+@media (max-width: 460px), (max-height: 520px) {
+  .vb-cover, .vb-notice { gap: 8px; padding: 10px; }
+  .vb-play { width: clamp(44px, 14vw, 56px); box-shadow: 0 0 0 6px rgba(255, 210, 31, 0.25); }
+  .vb-play svg { width: 26px; height: 26px; }
+  .vb-label { font-size: 0.95rem; }
+  .vb-sub { font-size: 0.8rem; }
+  .vb-notice svg { width: 32px; height: 32px; }
+  .vb-notice p { font-size: 0.85rem; line-height: 1.35; }
+}
 
 /* ---------- 3. Mural ---------- */
 .section--mural {
